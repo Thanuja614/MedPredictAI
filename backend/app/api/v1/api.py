@@ -11,7 +11,14 @@ from backend.app.api.v1.endpoints import (
     patients,
     diseases,
     datasets,
-    predictions
+    predictions,
+    analytics,
+    governance,
+    reports,
+    jobs,
+    notifications,
+    audit,
+    settings
 )
 
 api_router = APIRouter()
@@ -36,3 +43,25 @@ api_router.include_router(datasets.router)
 
 # ML Predictions & Explainability
 api_router.include_router(predictions.router)
+
+# Longitudinal Risk Analytics & Population Cohort
+api_router.include_router(analytics.router, prefix="/analytics", tags=["Analytics"])
+
+# Model Governance & Drift Detection
+api_router.include_router(governance.router, prefix="/governance", tags=["Model Governance"])
+
+# Clinical & Diagnostic Reports
+api_router.include_router(reports.router, prefix="/reports", tags=["Reports"])
+
+# Background Jobs
+api_router.include_router(jobs.router, prefix="/jobs", tags=["Background Jobs"])
+
+# In-App Notifications
+api_router.include_router(notifications.router, prefix="/notifications", tags=["Notifications"])
+
+# Security & Compliance Audit Trail
+api_router.include_router(audit.router, prefix="/audit", tags=["Audit Trail"])
+
+# Dynamic System Settings
+api_router.include_router(settings.router, prefix="/settings", tags=["System Settings"])
+

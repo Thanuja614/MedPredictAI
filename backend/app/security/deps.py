@@ -3,7 +3,7 @@ MedPredict AI — Authentication & RBAC Security Dependencies
 Extracts JWT credentials and enforces role and permission policies.
 """
 
-from typing import List, Callable
+from typing import List, Callable, Any
 from fastapi import Depends, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
@@ -44,12 +44,19 @@ def get_current_active_user(current_user: User = Depends(get_current_user)) -> U
         raise AuthorizationError("Inactive user account")
     return current_user
 
-def require_roles(*role_names: str) -> Callable:
+def require_roles(*role_names: Any) -> Callable:
     """
     Role-Based Access Control dependency factory.
     Enforces that current user holds at least one of the specified roles.
+    Supports both require_roles("admin", "doctor") and require_roles(["admin", "doctor"]).
     """
-    target_roles = {r.upper() for r in role_names}
+    flattened = []
+    for r in role_names:
+        if isinstance(r, (list, tuple, set)):
+            flattened.extend(r)
+        else:
+            flattened.append(r)
+    target_roles = {str(r).upper() for r in flattened}
 
     def role_checker(current_user: User = Depends(get_current_active_user)) -> User:
         user_roles = {r.name.upper() for r in current_user.roles}
@@ -60,21 +67,28 @@ def require_roles(*role_names: str) -> Callable:
 
     return role_checker
 
-def require_permissions(*permission_names: str) -> Callable:
+def require_permissions(*permission_names: Any) -> Callable:
     """
     Fine-grained permission dependency factory.
-    Enforces that current user holds all specified operational permissions.
+    Enforces that current user possesses at least one of the specified permissions.
     """
-    required_perms = set(permission_names)
+    flattened = []
+    for p in permission_names:
+        if isinstance(p, (list, tuple, set)):
+            flattened.extend(p)
+        else:
+            flattened.append(p)
+    target_perms = {str(p).upper() for p in flattened}
 
     def permission_checker(current_user: User = Depends(get_current_active_user)) -> User:
         user_perms = set()
-        for r in current_user.roles:
-            for p in r.permissions:
-                user_perms.add(p.name)
-        if not required_perms.issubset(user_perms):
-            missing = ", ".join(required_perms - user_perms)
-            raise AuthorizationError(f"Access denied. Missing required permissions: [{missing}]")
+        for role in current_user.roles:
+            for perm in role.permissions:
+                user_perms.add(perm.name.upper())
+
+        if not user_perms.intersection(target_perms):
+            allowed = ", ".join(target_perms)
+            raise AuthorizationError(f"Access denied. Requires permission: [{allowed}]")
         return current_user
 
     return permission_checker
