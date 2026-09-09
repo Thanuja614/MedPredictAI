@@ -1,0 +1,80 @@
+{
+  "dataset_name": "Liver Demo Dataset",
+  "disease_slug": "liver",
+  "version": "1.0.0",
+  "data_classification": "SYNTHETIC DEMONSTRATION DATA \u2014 NOT REAL PATIENT DATA",
+  "row_count": 400,
+  "target_variable": "target",
+  "features": [
+    {
+      "name": "age",
+      "data_type": "integer",
+      "min_value": 12,
+      "max_value": 85,
+      "unit": "years"
+    },
+    {
+      "name": "gender",
+      "data_type": "integer",
+      "min_value": 0,
+      "max_value": 1,
+      "unit": "code"
+    },
+    {
+      "name": "total_bilirubin",
+      "data_type": "float",
+      "min_value": 0.4,
+      "max_value": 25.0,
+      "unit": "mg/dL"
+    },
+    {
+      "name": "direct_bilirubin",
+      "data_type": "float",
+      "min_value": 0.1,
+      "max_value": 12.0,
+      "unit": "mg/dL"
+    },
+    {
+      "name": "alkaline_phosphatase",
+      "data_type": "float",
+      "min_value": 80.0,
+      "max_value": 1800.0,
+      "unit": "IU/L"
+    },
+    {
+      "name": "alamine_aminotransferase",
+      "data_type": "float",
+      "min_value": 10.0,
+      "max_value": 1200.0,
+      "unit": "IU/L"
+    },
+    {
+      "name": "aspartate_aminotransferase",
+      "data_type": "float",
+      "min_value": 10.0,
+      "max_value": 1200.0,
+      "unit": "IU/L"
+    },
+    {
+      "name": "total_proteins",
+      "data_type": "float",
+      "min_value": 2.5,
+      "max_value": 9.5,
+      "unit": "g/dL"
+    },
+    {
+      "name": "albumin",
+      "data_type": "float",
+      "min_value": 1.2,
+      "max_value": 5.5,
+      "unit": "g/dL"
+    },
+    {
+      "name": "ag_ratio",
+      "data_type": "float",
+      "min_value": 0.3,
+      "max_value": 2.8,
+      "unit": "ratio"
+    }
+  ]
+}

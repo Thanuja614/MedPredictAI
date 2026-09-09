@@ -1,0 +1,45 @@
+{
+  "dataset_name": "Anemia Demo Dataset",
+  "disease_slug": "anemia",
+  "version": "1.0.0",
+  "data_classification": "SYNTHETIC DEMONSTRATION DATA \u2014 NOT REAL PATIENT DATA",
+  "row_count": 400,
+  "target_variable": "target",
+  "features": [
+    {
+      "name": "gender",
+      "data_type": "integer",
+      "min_value": 0,
+      "max_value": 1,
+      "unit": "code"
+    },
+    {
+      "name": "hemoglobin",
+      "data_type": "float",
+      "min_value": 5.0,
+      "max_value": 19.0,
+      "unit": "g/dL"
+    },
+    {
+      "name": "mch",
+      "data_type": "float",
+      "min_value": 14.0,
+      "max_value": 38.0,
+      "unit": "pg"
+    },
+    {
+      "name": "mchc",
+      "data_type": "float",
+      "min_value": 22.0,
+      "max_value": 38.0,
+      "unit": "g/dL"
+    },
+    {
+      "name": "mcv",
+      "data_type": "float",
+      "min_value": 55.0,
+      "max_value": 115.0,
+      "unit": "fL"
+    }
+  ]
+}
