@@ -1,0 +1,59 @@
+{
+  "dataset_name": "Parkinsons Demo Dataset",
+  "disease_slug": "parkinsons",
+  "version": "1.0.0",
+  "data_classification": "SYNTHETIC DEMONSTRATION DATA \u2014 NOT REAL PATIENT DATA",
+  "row_count": 400,
+  "target_variable": "target",
+  "features": [
+    {
+      "name": "fo_hz",
+      "data_type": "float",
+      "min_value": 88.0,
+      "max_value": 260.0,
+      "unit": "Hz"
+    },
+    {
+      "name": "fhi_hz",
+      "data_type": "float",
+      "min_value": 100.0,
+      "max_value": 550.0,
+      "unit": "Hz"
+    },
+    {
+      "name": "flo_hz",
+      "data_type": "float",
+      "min_value": 65.0,
+      "max_value": 240.0,
+      "unit": "Hz"
+    },
+    {
+      "name": "jitter_percent",
+      "data_type": "float",
+      "min_value": 0.001,
+      "max_value": 0.04,
+      "unit": "%"
+    },
+    {
+      "name": "shimmer",
+      "data_type": "float",
+      "min_value": 0.008,
+      "max_value": 0.12,
+      "unit": "score"
+    },
+    {
+      "name": "hnr",
+      "data_type": "float",
+      "min_value": 8.0,
+      "max_value": 33.0,
+      "unit": "dB"
+    },
+    {
+      "name": "rpde",
+      "data_type": "float",
+      "min_value": 0.25,
+      "max_value": 0.72,
+      "unit": "score"
+    }
+  ]
+}

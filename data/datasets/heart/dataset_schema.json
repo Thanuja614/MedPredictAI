@@ -1,0 +1,87 @@
+{
+  "dataset_name": "Heart Demo Dataset",
+  "disease_slug": "heart",
+  "version": "1.0.0",
+  "data_classification": "SYNTHETIC DEMONSTRATION DATA \u2014 NOT REAL PATIENT DATA",
+  "row_count": 400,
+  "target_variable": "target",
+  "features": [
+    {
+      "name": "age",
+      "data_type": "integer",
+      "min_value": 25,
+      "max_value": 80,
+      "unit": "years"
+    },
+    {
+      "name": "sex",
+      "data_type": "integer",
+      "min_value": 0,
+      "max_value": 1,
+      "unit": "code"
+    },
+    {
+      "name": "chest_pain_type",
+      "data_type": "integer",
+      "min_value": 0,
+      "max_value": 3,
+      "unit": "code"
+    },
+    {
+      "name": "resting_bp",
+      "data_type": "float",
+      "min_value": 90.0,
+      "max_value": 200.0,
+      "unit": "mmHg"
+    },
+    {
+      "name": "cholesterol",
+      "data_type": "float",
+      "min_value": 120.0,
+      "max_value": 480.0,
+      "unit": "mg/dL"
+    },
+    {
+      "name": "fasting_blood_sugar",
+      "data_type": "integer",
+      "min_value": 0,
+      "max_value": 1,
+      "unit": "flag"
+    },
+    {
+      "name": "resting_ecg",
+      "data_type": "integer",
+      "min_value": 0,
+      "max_value": 2,
+      "unit": "code"
+    },
+    {
+      "name": "max_hr",
+      "data_type": "float",
+      "min_value": 75.0,
+      "max_value": 205.0,
+      "unit": "bpm"
+    },
+    {
+      "name": "exercise_angina",
+      "data_type": "integer",
+      "min_value": 0,
+      "max_value": 1,
+      "unit": "flag"
+    },
+    {
+      "name": "st_depression",
+      "data_type": "float",
+      "min_value": 0.0,
+      "max_value": 6.0,
+      "unit": "mm"
+    },
+    {
+      "name": "st_slope",
+      "data_type": "integer",
+      "min_value": 0,
+      "max_value": 2,
+      "unit": "code"
+    }
+  ]
+}

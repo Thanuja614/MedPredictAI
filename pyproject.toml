@@ -1,0 +1,25 @@
+[project]
+name = "medpredict-ai"
+version = "1.0.0"
+description = "MedPredict AI — Intelligent Multi-Disease Prediction & Medical Data Analytics Platform"
+readme = "README.md"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["backend/tests"]
+pythonpath = ["."]
+addopts = "-v --strict-markers"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "node_modules",
+    "__pycache__",
+    "build",
+    "dist"
+]

@@ -73,8 +73,8 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 
-# ML Artifacts (only ignore heavy binary weights if needed, keep metadata)
-models/artifacts/*.bin
-models/artifacts/*.pkl
-models/artifacts/*.joblib
+# ML Artifacts (generated weights and run metadata)
+models/artifacts/*
 !models/artifacts/.gitkeep
+
+

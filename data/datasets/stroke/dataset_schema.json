@@ -1,0 +1,59 @@
+{
+  "dataset_name": "Stroke Demo Dataset",
+  "disease_slug": "stroke",
+  "version": "1.0.0",
+  "data_classification": "SYNTHETIC DEMONSTRATION DATA \u2014 NOT REAL PATIENT DATA",
+  "row_count": 400,
+  "target_variable": "stroke",
+  "features": [
+    {
+      "name": "gender",
+      "data_type": "integer",
+      "min_value": 0,
+      "max_value": 1,
+      "unit": "code"
+    },
+    {
+      "name": "age",
+      "data_type": "float",
+      "min_value": 18.0,
+      "max_value": 90.0,
+      "unit": "years"
+    },
+    {
+      "name": "hypertension",
+      "data_type": "integer",
+      "min_value": 0,
+      "max_value": 1,
+      "unit": "flag"
+    },
+    {
+      "name": "heart_disease",
+      "data_type": "integer",
+      "min_value": 0,
+      "max_value": 1,
+      "unit": "flag"
+    },
+    {
+      "name": "ever_married",
+      "data_type": "integer",
+      "min_value": 0,
+      "max_value": 1,
+      "unit": "flag"
+    },
+    {
+      "name": "avg_glucose_level",
+      "data_type": "float",
+      "min_value": 55.0,
+      "max_value": 280.0,
+      "unit": "mg/dL"
+    },
+    {
+      "name": "bmi",
+      "data_type": "float",
+      "min_value": 15.0,
+      "max_value": 58.0,
+      "unit": "kg/m^2"
+    }
+  ]
+}
