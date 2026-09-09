@@ -3,7 +3,7 @@ MedPredict AI — Authentication & RBAC Security Dependencies
 Extracts JWT credentials and enforces role and permission policies.
 """
 
-from typing import List, Callable, Any
+from typing import List, Callable, Any, Optional
 from fastapi import Depends, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
@@ -43,6 +43,21 @@ def get_current_active_user(current_user: User = Depends(get_current_user)) -> U
     if not current_user.is_active:
         raise AuthorizationError("Inactive user account")
     return current_user
+
+def get_optional_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> Optional[User]:
+    """Retrieves authenticated user if valid token present, otherwise None."""
+    if not token:
+        return None
+    payload = decode_token(token)
+    if not payload:
+        return None
+    user_id = payload.get("sub")
+    if not user_id:
+        return None
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user or not user.is_active:
+        return None
+    return user
 
 def require_roles(*role_names: Any) -> Callable:
     """
@@ -91,4 +106,4 @@ def require_permissions(*permission_names: Any) -> Callable:
             raise AuthorizationError(f"Access denied. Requires permission: [{allowed}]")
         return current_user
 
-    return permission_checker
+    return permission

@@ -44,6 +44,7 @@ export const AssessmentWizardPage: React.FC = () => {
   const [prediction, setPrediction] = useState<PredictionResult | null>(null);
   const [downloadingReport, setDownloadingReport] = useState(false);
   const [reportUrl, setReportUrl] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   // Load Catalog of Diseases
   useEffect(() => {
@@ -64,6 +65,7 @@ export const AssessmentWizardPage: React.FC = () => {
       setLoadingSchema(true);
       setPrediction(null);
       setReportUrl(null);
+      setError(null);
       try {
         const details = await api.diseases.get(selectedSlug);
         setCurrentDisease(details);
@@ -105,14 +107,21 @@ export const AssessmentWizardPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    setError(null);
     try {
       const result = await api.predictions.submit({
         disease_slug: selectedSlug,
         features: formData,
       });
       setPrediction(result);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Inference error', err);
+      const msg =
+        err.response?.data?.error?.message ||
+        err.response?.data?.detail ||
+        err.message ||
+        'Failed to evaluate clinical risk. Please check inputs and try again.';
+      setError(msg);
     } finally {
       setSubmitting(false);
     }
@@ -133,13 +142,25 @@ export const AssessmentWizardPage: React.FC = () => {
   };
 
   // Convert SHAP contributions to Recharts data
-  const shapData = prediction?.explanations?.feature_contributions
-    ? Object.entries(prediction.explanations.feature_contributions).map(([feat, val]) => ({
+  const shapData = React.useMemo(() => {
+    if (!prediction) return [];
+    if (prediction?.explanations?.feature_contributions) {
+      return Object.entries(prediction.explanations.feature_contributions).map(([feat, val]) => ({
         feature: feat,
         impact: Number(val),
         color: Number(val) > 0 ? '#dc2626' : '#16a34a',
-      }))
-    : [];
+      }));
+    }
+    const anyPred = prediction as any;
+    if (anyPred.explanation?.contributions) {
+      return anyPred.explanation.contributions.map((c: any) => ({
+        feature: c.feature,
+        impact: Number(c.contribution),
+        color: Number(c.contribution) > 0 ? '#dc2626' : '#16a34a',
+      }));
+    }
+    return [];
+  }, [prediction]);
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
@@ -192,7 +213,14 @@ export const AssessmentWizardPage: React.FC = () => {
               Loading disease parameter specifications...
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <>
+              {error && (
+                <div className="mb-4 p-3 bg-rose-50 border border-rose-200 text-rose-800 text-xs rounded-xl flex items-center space-x-2">
+                  <AlertTriangle className="w-4 h-4 text-rose-600 flex-shrink-0" />
+                  <span>{error}</span>
+                </div>
+              )}
+              <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {currentDisease?.features.map((feat) => (
                   <div key={feat.name} className="space-y-1">
@@ -265,6 +293,7 @@ export const AssessmentWizardPage: React.FC = () => {
                 </button>
               </div>
             </form>
+            </>
           )}
         </div>
 
@@ -352,7 +381,7 @@ export const AssessmentWizardPage: React.FC = () => {
                         />
                         <ReferenceLine x={0} stroke="#94a3b8" />
                         <Bar dataKey="impact" radius={[0, 4, 4, 0]}>
-                          {shapData.map((entry, index) => (
+                          {shapData.map((entry: { color: string }, index: number) => (
                             <Cell key={`cell-${index}`} fill={entry.color} />
                           ))}
                         </Bar>

@@ -2,7 +2,7 @@
 MedPredict AI — Clinical & Diagnostic Report Endpoints
 """
 
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from pathlib import Path
 from fastapi import APIRouter, Depends, Path as FPath, Response
 from fastapi.responses import FileResponse
@@ -12,7 +12,7 @@ from sqlalchemy import select, desc
 from backend.app.core.database import get_db
 from backend.app.models.user import User
 from backend.app.models.report import Report
-from backend.app.security.deps import get_current_active_user
+from backend.app.security.deps import get_current_active_user, get_optional_current_user
 from backend.app.services.report_service import ReportService
 
 router = APIRouter()
@@ -21,13 +21,14 @@ router = APIRouter()
 def generate_prediction_report(
     prediction_id: str = FPath(..., description="Target Prediction ID"),
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_active_user)
+    current_user: Optional[User] = Depends(get_optional_current_user)
 ) -> Dict[str, Any]:
     """Generates an authentic PDF clinical summary report for the given prediction."""
+    user_id = current_user.id if current_user else None
     report = ReportService.generate_clinical_pdf_report(
         db=db,
         prediction_id=prediction_id,
-        user_id=current_user.id
+        user_id=user_id
     )
     return {
         "report_id": report.id,
@@ -41,7 +42,7 @@ def generate_prediction_report(
 def download_report(
     report_id: str = FPath(..., description="Report ID to download"),
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_active_user)
+    current_user: Optional[User] = Depends(get_optional_current_user)
 ):
     """Downloads the generated PDF report."""
     report = ReportService.get_report_by_id(db, report_id)
