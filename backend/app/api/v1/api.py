@@ -18,7 +18,8 @@ from backend.app.api.v1.endpoints import (
     jobs,
     notifications,
     audit,
-    settings
+    settings,
+    clinical
 )
 
 api_router = APIRouter()
@@ -64,4 +65,7 @@ api_router.include_router(audit.router, prefix="/audit", tags=["Audit Trail"])
 
 # Dynamic System Settings
 api_router.include_router(settings.router, prefix="/settings", tags=["System Settings"])
+
+# Clinical Decision Support & Ontologies
+api_router.include_router(clinical.router)
 
