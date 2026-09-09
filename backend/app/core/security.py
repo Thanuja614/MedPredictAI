@@ -3,6 +3,7 @@ MedPredict AI — Cryptography & Security Engine
 Handles direct bcrypt password hashing, salt management, JWT encoding/decoding, and token verification.
 """
 
+import uuid
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Optional, Union
 import bcrypt
@@ -49,6 +50,7 @@ def create_access_token(subject: Union[str, Any], expires_delta: Optional[timede
     
     payload = {
         "sub": str(subject),
+        "jti": uuid.uuid4().hex,
         "iat": int(now.timestamp()),
         "exp": int(expire.timestamp()),
         "type": "access"
