@@ -16,6 +16,7 @@ from backend.app.schemas.user import (
 )
 from backend.app.schemas.token import Token, RefreshTokenRequest
 from backend.app.services.auth_service import AuthService
+from backend.app.core.errors import DataValidationError
 from backend.app.security.deps import get_current_user
 from backend.app.models.user import User
 
@@ -28,9 +29,27 @@ def register_user(user_in: UserCreate, request: Request, db: Session = Depends(g
     return AuthService.register_user(db, user_in, ip_address=client_ip)
 
 @router.post("/login", response_model=Token, summary="Authenticate & Retrieve JWT")
-def login(credentials: UserLogin, request: Request, db: Session = Depends(get_db)):
-    """Authenticates credentials and returns an access token and refresh token."""
+async def login(request: Request, db: Session = Depends(get_db)):
+    """Authenticates credentials (accepts JSON or application/x-www-form-urlencoded) and returns JWT tokens."""
     client_ip = request.client.host if request.client else None
+    content_type = request.headers.get("content-type", "").lower()
+    
+    if "application/x-www-form-urlencoded" in content_type or "multipart/form-data" in content_type:
+        form = await request.form()
+        email = form.get("username") or form.get("email")
+        password = form.get("password")
+    else:
+        try:
+            body = await request.json()
+            email = body.get("email") or body.get("username")
+            password = body.get("password")
+        except Exception:
+            raise DataValidationError("Invalid JSON or form payload")
+
+    if not email or not password:
+        raise DataValidationError("Email and password are required")
+
+    credentials = UserLogin(email=email, password=password)
     _, token = AuthService.authenticate_user(db, credentials, ip_address=client_ip)
     return token
 

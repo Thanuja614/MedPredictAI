@@ -16,6 +16,7 @@ from backend.app.schemas.prediction import (
 from backend.app.services.prediction_service import PredictionService
 from backend.app.security.deps import (
     get_current_active_user,
+    get_optional_current_user,
     require_roles
 )
 from backend.app.core.errors import EntityNotFoundError, AuthorizationError
@@ -24,6 +25,19 @@ from backend.app.models.user import User
 router = APIRouter(prefix="/predictions", tags=["Predictions & Inference"])
 
 @router.post(
+    "",
+    response_model=PredictionResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Evaluate Disease Risk & SHAP Explanation (Standard)",
+    include_in_schema=False
+)
+@router.post(
+    "/",
+    response_model=PredictionResponse,
+    status_code=status.HTTP_200_OK,
+    include_in_schema=False
+)
+@router.post(
     "/evaluate",
     response_model=PredictionResponse,
     status_code=status.HTTP_200_OK,
@@ -31,14 +45,15 @@ router = APIRouter(prefix="/predictions", tags=["Predictions & Inference"])
 )
 def evaluate_prediction(
     request: PredictionRequest,
-    current_user: User = Depends(get_current_active_user),
+    current_user: Optional[User] = Depends(get_optional_current_user),
     db: Session = Depends(get_db)
 ):
     """
     Executes machine learning risk prediction for a selected disease module,
     computes local SHAP waterfall attribution, and attaches the mandatory medical safety disclaimer.
     """
-    return PredictionService.evaluate(db, request, user_id=current_user.id)
+    user_id = current_user.id if current_user else None
+    return PredictionService.evaluate(db, request, user_id=user_id)
 
 @router.get(
     "/history",
@@ -46,12 +61,12 @@ def evaluate_prediction(
     summary="Get Patient Prediction History"
 )
 def get_prediction_history(
-    patient_id: str = Query(..., description="Target patient UUID"),
+    patient_id: Optional[str] = Query(None, description="Target patient UUID"),
     current_user: User = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):
     """Retrieves longitudinal risk prediction history for trend analytics."""
-    return PredictionService.list_patient_history(db, patient_id)
+    return PredictionService.list_patient_history(db, patient_id=patient_id, user_id=current_user.id)
 
 @router.get(
     "/{prediction_id}",

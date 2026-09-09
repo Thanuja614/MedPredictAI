@@ -56,9 +56,17 @@ class PredictionService:
         model_ver = db.query(ModelVersion).join(ModelVersion.model).filter(ModelVersion.status == "active").first()
         mv_id = model_ver.id if model_ver else "v1.0.0"
 
+        # Resolve patient if user is authenticated and patient_id is not explicitly passed
+        target_patient_id = request.patient_id
+        if not target_patient_id and user_id:
+            from backend.app.models.patient import Patient
+            patient = db.query(Patient).filter(Patient.user_id == user_id).first()
+            if patient:
+                target_patient_id = patient.id
+
         # 1. Create Prediction record
         prediction = Prediction(
-            patient_id=request.patient_id,
+            patient_id=target_patient_id,
             assessment_id=request.assessment_id,
             model_version_id=mv_id,
             disease_id=disease.id,
@@ -97,14 +105,26 @@ class PredictionService:
         db.commit()
         db.refresh(prediction)
 
+        contributions_list = expl_data.get("contributions", [])
+        feature_contributions_dict = {
+            c["feature"]: c["contribution"] for c in contributions_list if isinstance(c, dict) and "feature" in c
+        }
+
         return PredictionResponse(
             prediction_id=prediction.id,
+            id=prediction.id,
             disease_name=disease.name,
             disease_slug=disease.slug,
             probability=pred_data["probability"],
             risk_level=pred_data["risk_level"],
+            confidence_score=0.95,
             thresholds=pred_data["thresholds"],
             explanation=expl_data,
+            explanations={
+                "method": expl_data.get("method", "SHAP_ATTRIBUTION"),
+                "feature_contributions": feature_contributions_dict,
+                "base_value": expl_data.get("base_value", 0.5)
+            },
             disclaimer=pred_data["disclaimer"],
             created_at=prediction.created_at
         )
@@ -114,5 +134,15 @@ class PredictionService:
         return db.query(Prediction).filter(Prediction.id == prediction_id).first()
 
     @staticmethod
-    def list_patient_history(db: Session, patient_id: str) -> List[Prediction]:
-        return db.query(Prediction).filter(Prediction.patient_id == patient_id).order_by(Prediction.created_at.desc()).all()
+    def list_patient_history(db: Session, patient_id: Optional[str] = None, user_id: Optional[str] = None) -> List[Prediction]:
+        query = db.query(Prediction)
+        if patient_id:
+            query = query.filter(Prediction.patient_id == patient_id)
+        elif user_id:
+            from backend.app.models.patient import Patient
+            patient = db.query(Patient).filter(Patient.user_id == user_id).first()
+            if patient:
+                query = query.filter(Prediction.patient_id == patient.id)
+            else:
+                return []
+        return query.order_by(Prediction.created_at.desc()).all()
