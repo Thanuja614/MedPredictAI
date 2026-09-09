@@ -12,8 +12,8 @@ export const LoginPage: React.FC = () => {
   const { login, setActiveRole } = useAuth();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('admin@medpredict.local');
-  const [password, setPassword] = useState('AdminSecurePass123!');
+  const [email, setEmail] = useState('patient@medpredict.ai');
+  const [password, setPassword] = useState('PatientPassword123!');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -35,9 +35,9 @@ export const LoginPage: React.FC = () => {
     }
   };
 
-  const handleDemoPreset = (presetEmail: string, presetRole: string) => {
+  const handleDemoPreset = (presetEmail: string, presetPass: string, presetRole: string) => {
     setEmail(presetEmail);
-    setPassword('AdminSecurePass123!');
+    setPassword(presetPass);
     setActiveRole(presetRole);
   };
 
@@ -124,7 +124,7 @@ export const LoginPage: React.FC = () => {
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
-                onClick={() => handleDemoPreset('admin@medpredict.local', 'admin')}
+                onClick={() => handleDemoPreset('admin@medpredict.ai', 'AdminPassword123!', 'admin')}
                 className="text-left p-2 rounded-lg border border-slate-200 hover:border-sky-500 hover:bg-sky-50/50 transition text-xs"
               >
                 <div className="font-semibold text-slate-800">Administrator</div>
@@ -132,7 +132,7 @@ export const LoginPage: React.FC = () => {
               </button>
               <button
                 type="button"
-                onClick={() => handleDemoPreset('doctor@medpredict.local', 'doctor')}
+                onClick={() => handleDemoPreset('doctor@medpredict.ai', 'DoctorPassword123!', 'doctor')}
                 className="text-left p-2 rounded-lg border border-slate-200 hover:border-sky-500 hover:bg-sky-50/50 transition text-xs"
               >
                 <div className="font-semibold text-slate-800">Clinician / Doctor</div>
@@ -140,7 +140,7 @@ export const LoginPage: React.FC = () => {
               </button>
               <button
                 type="button"
-                onClick={() => handleDemoPreset('datascientist@medpredict.local', 'data_scientist')}
+                onClick={() => handleDemoPreset('datascientist@medpredict.ai', 'ScientistPassword123!', 'data_scientist')}
                 className="text-left p-2 rounded-lg border border-slate-200 hover:border-sky-500 hover:bg-sky-50/50 transition text-xs"
               >
                 <div className="font-semibold text-slate-800">Data Scientist</div>
@@ -148,7 +148,7 @@ export const LoginPage: React.FC = () => {
               </button>
               <button
                 type="button"
-                onClick={() => handleDemoPreset('patient@medpredict.local', 'patient')}
+                onClick={() => handleDemoPreset('patient@medpredict.ai', 'PatientPassword123!', 'patient')}
                 className="text-left p-2 rounded-lg border border-slate-200 hover:border-sky-500 hover:bg-sky-50/50 transition text-xs"
               >
                 <div className="font-semibold text-slate-800">Patient</div>

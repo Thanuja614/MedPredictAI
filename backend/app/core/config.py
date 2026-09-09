@@ -24,8 +24,8 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
-    # Database Configuration
-    DATABASE_URL: str = "postgresql+psycopg://medpredict_user:medpredict_pass@localhost:5432/medpredict_db"
+    # Database Configuration (SQLite default fallback for zero-dependency local execution)
+    DATABASE_URL: str = "sqlite:///./medpredict_dev.db"
     DATABASE_TEST_URL: str = "sqlite:///./test_medpredict.db"
     DB_POOL_SIZE: int = 10
     DB_MAX_OVERFLOW: int = 20
@@ -33,7 +33,7 @@ class Settings(BaseSettings):
 
     # Cache & Queue Configuration (Redis)
     REDIS_URL: str = "redis://localhost:6379/0"
-    CACHE_ENABLED: bool = True
+    CACHE_ENABLED: bool = False
     CACHE_TTL_SECONDS: int = 3600
 
     # CORS Origins
@@ -59,9 +59,10 @@ class Settings(BaseSettings):
     RATE_LIMIT_PER_MINUTE: int = 60
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=(".env", "example.env"),
         extra="ignore",
         case_sensitive=True
     )
+
 
 settings = Settings()

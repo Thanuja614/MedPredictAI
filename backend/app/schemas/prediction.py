@@ -31,12 +31,15 @@ class ThresholdConfig(BaseModel):
 
 class PredictionResponse(BaseModel):
     prediction_id: str
+    id: Optional[str] = None
     disease_name: str
     disease_slug: str
     probability: float
     risk_level: str  # LOW, MODERATE, HIGH
+    confidence_score: Optional[float] = 0.95
     thresholds: ThresholdConfig
     explanation: ExplanationRead
+    explanations: Optional[Dict[str, Any]] = None
     disclaimer: str
     created_at: datetime
 
