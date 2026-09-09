@@ -25,6 +25,14 @@ class EntityNotFoundError(MedPredictAPIException):
     def __init__(self, message: str, details: Optional[List[Dict[str, Any]]] = None):
         super().__init__(message, code="NOT_FOUND", status_code=status.HTTP_404_NOT_FOUND, details=details)
 
+class ResourceNotFoundError(EntityNotFoundError):
+    def __init__(self, resource: str, identifier: Any):
+        super().__init__(f"{resource} '{identifier}' not found")
+
+class BusinessRuleViolationError(MedPredictAPIException):
+    def __init__(self, message: str, details: Optional[List[Dict[str, Any]]] = None):
+        super().__init__(message, code="BUSINESS_RULE_VIOLATION", status_code=status.HTTP_400_BAD_REQUEST, details=details)
+
 class AuthorizationError(MedPredictAPIException):
     def __init__(self, message: str = "Access denied: insufficient permissions"):
         super().__init__(message, code="FORBIDDEN", status_code=status.HTTP_403_FORBIDDEN)
@@ -36,6 +44,7 @@ class AuthenticationError(MedPredictAPIException):
 class DataValidationError(MedPredictAPIException):
     def __init__(self, message: str, details: Optional[List[Dict[str, Any]]] = None):
         super().__init__(message, code="VALIDATION_ERROR", status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, details=details)
+
 
 def format_error_response(code: str, message: str, details: Optional[List[Any]] = None, status_code: int = 400) -> JSONResponse:
     """Generates standardized error envelope."""
