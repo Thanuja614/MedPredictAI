@@ -33,7 +33,13 @@ env/
 *.pem
 *.key
 
+# Archives
+*.zip
+*.tar.gz
+*.tgz
+
 # Database & Cache
+
 *.sqlite3
 *.db
 dump.rdb
