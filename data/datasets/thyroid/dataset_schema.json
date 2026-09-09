@@ -1,0 +1,59 @@
+{
+  "dataset_name": "Thyroid Demo Dataset",
+  "disease_slug": "thyroid",
+  "version": "1.0.0",
+  "data_classification": "SYNTHETIC DEMONSTRATION DATA \u2014 NOT REAL PATIENT DATA",
+  "row_count": 400,
+  "target_variable": "target",
+  "features": [
+    {
+      "name": "age",
+      "data_type": "integer",
+      "min_value": 15,
+      "max_value": 88,
+      "unit": "years"
+    },
+    {
+      "name": "sex",
+      "data_type": "integer",
+      "min_value": 0,
+      "max_value": 1,
+      "unit": "code"
+    },
+    {
+      "name": "on_thyroxine",
+      "data_type": "integer",
+      "min_value": 0,
+      "max_value": 1,
+      "unit": "flag"
+    },
+    {
+      "name": "tsh",
+      "data_type": "float",
+      "min_value": 0.05,
+      "max_value": 40.0,
+      "unit": "mIU/L"
+    },
+    {
+      "name": "t3",
+      "data_type": "float",
+      "min_value": 0.2,
+      "max_value": 8.0,
+      "unit": "nmol/L"
+    },
+    {
+      "name": "tt4",
+      "data_type": "float",
+      "min_value": 15.0,
+      "max_value": 280.0,
+      "unit": "nmol/L"
+    },
+    {
+      "name": "t4u",
+      "data_type": "float",
+      "min_value": 0.3,
+      "max_value": 2.2,
+      "unit": "ratio"
+    }
+  ]
+}

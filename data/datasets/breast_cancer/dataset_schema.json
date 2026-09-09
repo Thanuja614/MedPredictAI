@@ -1,0 +1,59 @@
+{
+  "dataset_name": "Breast Cancer Demo Dataset",
+  "disease_slug": "breast_cancer",
+  "version": "1.0.0",
+  "data_classification": "SYNTHETIC DEMONSTRATION DATA \u2014 NOT REAL PATIENT DATA",
+  "row_count": 400,
+  "target_variable": "target",
+  "features": [
+    {
+      "name": "radius_mean",
+      "data_type": "float",
+      "min_value": 6.0,
+      "max_value": 30.0,
+      "unit": "mm"
+    },
+    {
+      "name": "texture_mean",
+      "data_type": "float",
+      "min_value": 9.0,
+      "max_value": 40.0,
+      "unit": "score"
+    },
+    {
+      "name": "perimeter_mean",
+      "data_type": "float",
+      "min_value": 45.0,
+      "max_value": 190.0,
+      "unit": "mm"
+    },
+    {
+      "name": "area_mean",
+      "data_type": "float",
+      "min_value": 140.0,
+      "max_value": 2500.0,
+      "unit": "mm^2"
+    },
+    {
+      "name": "smoothness_mean",
+      "data_type": "float",
+      "min_value": 0.05,
+      "max_value": 0.18,
+      "unit": "score"
+    },
+    {
+      "name": "compactness_mean",
+      "data_type": "float",
+      "min_value": 0.02,
+      "max_value": 0.32,
+      "unit": "score"
+    },
+    {
+      "name": "concavity_mean",
+      "data_type": "float",
+      "min_value": 0.0,
+      "max_value": 0.45,
+      "unit": "score"
+    }
+  ]
+}

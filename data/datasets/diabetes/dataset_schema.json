@@ -1,0 +1,66 @@
+{
+  "dataset_name": "Diabetes Demo Dataset",
+  "disease_slug": "diabetes",
+  "version": "1.0.0",
+  "data_classification": "SYNTHETIC DEMONSTRATION DATA \u2014 NOT REAL PATIENT DATA",
+  "row_count": 400,
+  "target_variable": "outcome",
+  "features": [
+    {
+      "name": "pregnancies",
+      "data_type": "integer",
+      "min_value": 0,
+      "max_value": 15,
+      "unit": "count"
+    },
+    {
+      "name": "glucose",
+      "data_type": "float",
+      "min_value": 65.0,
+      "max_value": 260.0,
+      "unit": "mg/dL"
+    },
+    {
+      "name": "blood_pressure",
+      "data_type": "float",
+      "min_value": 50.0,
+      "max_value": 130.0,
+      "unit": "mmHg"
+    },
+    {
+      "name": "skin_thickness",
+      "data_type": "float",
+      "min_value": 10.0,
+      "max_value": 60.0,
+      "unit": "mm"
+    },
+    {
+      "name": "insulin",
+      "data_type": "float",
+      "min_value": 15.0,
+      "max_value": 550.0,
+      "unit": "mu U/ml"
+    },
+    {
+      "name": "bmi",
+      "data_type": "float",
+      "min_value": 18.0,
+      "max_value": 52.0,
+      "unit": "kg/m^2"
+    },
+    {
+      "name": "diabetes_pedigree",
+      "data_type": "float",
+      "min_value": 0.08,
+      "max_value": 2.2,
+      "unit": "score"
+    },
+    {
+      "name": "age",
+      "data_type": "integer",
+      "min_value": 21,
+      "max_value": 85,
+      "unit": "years"
+    }
+  ]
+}
