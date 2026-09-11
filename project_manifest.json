@@ -235,11 +235,11 @@
     "medical_safety_layer": "Enforced Prominent Regulatory Disclaimer"
   },
   "loc_metrics": {
-    "total_lines_of_code": 525453,
-    "total_commits": 217,
-    "total_prs_merges": 104,
+    "total_lines_of_code": 600845,
+    "total_commits": 270,
+    "total_prs_merges": 131,
     "total_api_routes": 131,
-    "total_files": 376
+    "total_files": 613
   },
   "verification": {
     "automated_tests_count": 38,
