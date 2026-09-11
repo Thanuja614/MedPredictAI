@@ -15,11 +15,20 @@ Creates the production submission ZIP archive containing:
 
 import os
 import zipfile
+import shutil
 import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-OUTPUT_ZIP = Path(r"c:\Users\pedha\OneDrive\Desktop\MedPredictAI_v1.0.0.zip")
+
+# Detect user desktop
+desktop_candidate = Path.home() / "OneDrive" / "Desktop"
+if not desktop_candidate.exists():
+    desktop_candidate = Path.home() / "Desktop"
+
+OUTPUT_ZIP = desktop_candidate / "MedPredictAI_v2.0.0.zip"
+DOWNLOADS_ZIP = Path.home() / "Downloads" / "MedPredictAI_v2.0.0.zip"
+LOCAL_ZIP = ROOT / "MedPredictAI_v2.0.0.zip"
 
 EXCLUDED_DIR_NAMES = {
     'venv', '.venv', 'node_modules', 'dist', 'build',
@@ -57,6 +66,7 @@ def create_archive():
     print(f"[*] Packaging MedPredict AI into: {OUTPUT_ZIP}")
     start_time = time.time()
     
+    OUTPUT_ZIP.parent.mkdir(parents=True, exist_ok=True)
     if OUTPUT_ZIP.exists():
         print(f"[*] Removing existing archive {OUTPUT_ZIP}...")
         OUTPUT_ZIP.unlink()
@@ -92,13 +102,26 @@ def create_archive():
     print("\n" + "="*60)
     print("ARCHIVE GENERATION COMPLETE")
     print("="*60)
-    print(f"Target Zip Path:       {OUTPUT_ZIP}")
+    print(f"Primary Desktop Path:  {OUTPUT_ZIP}")
     print(f"Compressed Size:       {zip_size_mb:.2f} MB")
     print(f"Uncompressed Size:     {raw_size_mb:.2f} MB")
     print(f"Total Files Archived:  {total_files}")
     print(f"Git Objects Archived:  {git_files_count}")
     print(f"Time Taken:            {elapsed:.2f} seconds")
     print("="*60)
+
+    # Replicate copy to Downloads and Workspace
+    try:
+        shutil.copy2(OUTPUT_ZIP, DOWNLOADS_ZIP)
+        print(f"[*] Copy created at Downloads: {DOWNLOADS_ZIP}")
+    except Exception as e:
+        print(f"[!] Warning copying to Downloads: {e}")
+
+    try:
+        shutil.copy2(OUTPUT_ZIP, LOCAL_ZIP)
+        print(f"[*] Copy created at Workspace: {LOCAL_ZIP}")
+    except Exception as e:
+        print(f"[!] Warning copying to Workspace: {e}")
 
 def verify_archive():
     print("\n[*] Verifying archive compliance against evaluator criteria...")
