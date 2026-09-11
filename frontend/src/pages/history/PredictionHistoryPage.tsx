@@ -179,7 +179,7 @@ export const PredictionHistoryPage: React.FC = () => {
           <span className="text-[11px] font-bold text-medblue uppercase tracking-wider font-mono">
             Audit Ledger & Historical Records
           </span>
-          <h2 className="font-serif text-2xl lg:text-3xl font-bold text-navy-800">
+          <h2 className="text-xl lg:text-2xl font-bold text-slate-900">
             Clinical Prediction History
           </h2>
           <p className="text-xs text-slateText">

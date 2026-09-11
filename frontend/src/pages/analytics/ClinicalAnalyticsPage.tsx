@@ -68,7 +68,7 @@ export const ClinicalAnalyticsPage: React.FC = () => {
           <span className="text-[11px] font-bold text-medblue uppercase tracking-wider font-mono">
             Medical Informatics Division
           </span>
-          <h2 className="font-serif text-2xl lg:text-3xl font-bold text-navy-800">
+          <h2 className="text-xl lg:text-2xl font-bold text-slate-900">
             Healthcare Analytics & Population Telemetry
           </h2>
           <p className="text-xs text-slateText">
@@ -125,7 +125,7 @@ export const ClinicalAnalyticsPage: React.FC = () => {
       <div className="bg-surface rounded-card p-6 border border-borderLine shadow-medical space-y-4">
         <div className="flex items-center justify-between border-b border-borderLine pb-3">
           <div>
-            <h3 className="font-serif text-lg font-bold text-navy-800">
+            <h3 className="text-base font-bold text-slate-900">
               12-Month Population Risk Volume & Escalation Rates
             </h3>
             <p className="text-xs text-slateText">
@@ -166,7 +166,7 @@ export const ClinicalAnalyticsPage: React.FC = () => {
         <div className="lg:col-span-8 bg-surface rounded-card p-6 border border-borderLine shadow-medical space-y-4">
           <div className="flex items-center justify-between border-b border-borderLine pb-3">
             <div>
-              <h3 className="font-serif text-lg font-bold text-navy-800">
+              <h3 className="text-base font-bold text-slate-900">
                 10 Core Disease Engines — Cross-Validation Metrics
               </h3>
               <p className="text-xs text-slateText">
@@ -198,7 +198,7 @@ export const ClinicalAnalyticsPage: React.FC = () => {
         {/* Risk Distribution Donut (4 Cols) */}
         <div className="lg:col-span-4 bg-surface rounded-card p-6 border border-borderLine shadow-medical flex flex-col justify-between">
           <div className="border-b border-borderLine pb-3">
-            <h3 className="font-serif text-lg font-bold text-navy-800">
+            <h3 className="text-base font-bold text-slate-900">
               Active Risk Stratification
             </h3>
             <p className="text-xs text-slateText">

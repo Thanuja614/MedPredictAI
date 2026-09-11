@@ -79,7 +79,7 @@ export const PatientProfilePage: React.FC = () => {
             </div>
             <div>
               <div className="flex items-center space-x-3">
-                <h2 className="font-serif text-2xl font-bold text-navy-800">
+                <h2 className="text-xl font-bold text-slate-900">
                   {patient.name}
                 </h2>
                 <StatusBadge status={patient.riskTier} label={`${patient.riskTier} RISK`} />
@@ -137,7 +137,7 @@ export const PatientProfilePage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Active Diagnoses & Conditions */}
           <div className="bg-surface rounded-card p-5 border border-borderLine shadow-medical space-y-3">
-            <h3 className="font-serif text-base font-bold text-navy-800 border-b border-borderLine pb-2">
+            <h3 className="text-sm font-bold text-slate-900 border-b border-borderLine pb-2">
               Primary & Active Diagnoses
             </h3>
             <div className="space-y-2 text-xs">
@@ -161,7 +161,7 @@ export const PatientProfilePage: React.FC = () => {
               </div>
             </div>
 
-            <h4 className="font-serif text-sm font-bold text-navy-800 pt-3 border-t border-borderLine/60">
+            <h4 className="text-xs font-bold text-slate-900 pt-3 border-t border-borderLine/60">
               Documented Allergies
             </h4>
             <div className="flex flex-wrap gap-1.5">
@@ -175,7 +175,7 @@ export const PatientProfilePage: React.FC = () => {
 
           {/* Active Pharmacotherapy */}
           <div className="bg-surface rounded-card p-5 border border-borderLine shadow-medical space-y-3">
-            <h3 className="font-serif text-base font-bold text-navy-800 border-b border-borderLine pb-2">
+            <h3 className="text-sm font-bold text-slate-900 border-b border-borderLine pb-2">
               Active Guideline Pharmacotherapy
             </h3>
             <div className="space-y-2 text-xs">
@@ -193,7 +193,7 @@ export const PatientProfilePage: React.FC = () => {
 
           {/* Quick Biometric Summary */}
           <div className="bg-surface rounded-card p-5 border border-borderLine shadow-medical space-y-3">
-            <h3 className="font-serif text-base font-bold text-navy-800 border-b border-borderLine pb-2">
+            <h3 className="text-sm font-bold text-slate-900 border-b border-borderLine pb-2">
               Current Vital Parameters
             </h3>
             <div className="grid grid-cols-2 gap-2 text-xs">
@@ -220,7 +220,7 @@ export const PatientProfilePage: React.FC = () => {
 
       {activeTab === 'vitals' && (
         <div className="bg-surface rounded-card p-6 border border-borderLine shadow-medical space-y-4">
-          <h3 className="font-serif text-lg font-bold text-navy-800">
+          <h3 className="text-base font-bold text-slate-900">
             Vital Signs & Hemodynamic Profile
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
@@ -251,7 +251,7 @@ export const PatientProfilePage: React.FC = () => {
       {activeTab === 'labs' && (
         <div className="bg-surface rounded-card border border-borderLine shadow-medical overflow-hidden">
           <div className="p-5 border-b border-borderLine">
-            <h3 className="font-serif text-lg font-bold text-navy-800">
+            <h3 className="text-base font-bold text-slate-900">
               Diagnostic Laboratory Values
             </h3>
             <p className="text-xs text-slateText">Latest panel collected and validated by Central Pathology</p>
@@ -307,7 +307,7 @@ export const PatientProfilePage: React.FC = () => {
 
       {activeTab === 'notes' && (
         <div className="bg-surface rounded-card p-6 border border-borderLine shadow-medical space-y-4">
-          <h3 className="font-serif text-lg font-bold text-navy-800">
+          <h3 className="text-base font-bold text-slate-900">
             Attending Physician Progress Notes
           </h3>
           <div className="p-4 bg-ivory rounded-btn border border-borderLine text-xs text-charcoal leading-relaxed space-y-2">

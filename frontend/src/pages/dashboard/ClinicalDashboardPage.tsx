@@ -63,45 +63,40 @@ export const ClinicalDashboardPage: React.FC = () => {
   });
 
   return (
-    <div className="space-y-6 pb-12">
-      {/* 1. Welcome Clinical Panel */}
-      <div className="bg-surface rounded-card p-6 border border-borderLine shadow-medical relative overflow-hidden">
-        {/* Subtle grid pattern background */}
-        <div className="absolute inset-0 bg-medical-grid opacity-60 pointer-events-none" />
-        
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div className="space-y-1.5 max-w-2xl">
-            <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded-full bg-medblue-light text-medblue text-[11px] font-semibold border border-medblue/20">
-              <Stethoscope className="w-3.5 h-3.5" />
-              <span>Cardiopulmonary & Metabolic Clinical Command</span>
-            </div>
-            <h2 className="font-serif text-2xl lg:text-3xl font-bold text-navy-800 tracking-tight">
-              Good morning, Dr. Mitchell
-            </h2>
-            <p className="text-xs text-slateText leading-relaxed">
-              Review current inpatient and ambulatory disease risk predictions, verify flagged biomarker alerts, and access calibrated clinical decision-support telemetry.
-            </p>
+    <div className="space-y-5 pb-12">
+      {/* 1. Clinical Command Welcome Header */}
+      <div className="bg-white rounded-lg p-5 border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="space-y-1 max-w-2xl">
+          <div className="inline-flex items-center space-x-2 px-2 py-0.5 rounded bg-sky-50 text-sky-700 text-xs font-semibold border border-sky-100">
+            <Stethoscope className="w-3.5 h-3.5" />
+            <span>Cardiopulmonary & Critical Care Medicine</span>
           </div>
+          <h2 className="text-xl lg:text-2xl font-bold text-slate-900 tracking-tight">
+            Clinical Command Dashboard
+          </h2>
+          <p className="text-xs text-slate-600 leading-normal">
+            Active inpatient monitoring, real-time multi-disease risk triage, and algorithmic decision support.
+          </p>
+        </div>
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 shrink-0">
-            <div className="text-left sm:text-right text-xs">
-              <div className="flex items-center sm:justify-end space-x-1.5 text-navy-800 font-semibold font-mono">
-                <Calendar className="w-3.5 h-3.5 text-medblue" />
-                <span>Friday, September 11, 2026</span>
-              </div>
-              <div className="flex items-center sm:justify-end space-x-1.5 text-[11px] text-slateText mt-0.5">
-                <Clock className="w-3 h-3 text-sage" />
-                <span>Sync: 4 mins ago (HL7 FHIR v4.0)</span>
-              </div>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 shrink-0">
+          <div className="text-left sm:text-right text-xs">
+            <div className="flex items-center sm:justify-end space-x-1.5 text-slate-800 font-semibold font-mono">
+              <Calendar className="w-3.5 h-3.5 text-sky-600" />
+              <span>Friday, September 11, 2026</span>
             </div>
-            <Link
-              to="/prediction"
-              className="inline-flex items-center space-x-2 px-4 py-2 bg-navy-800 hover:bg-navy-700 text-ivory text-xs font-semibold rounded-btn shadow-sm transition"
-            >
-              <span>New Risk Assessment</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+            <div className="flex items-center sm:justify-end space-x-1.5 text-[11px] text-slate-500 mt-0.5">
+              <Clock className="w-3 h-3 text-emerald-600" />
+              <span>HL7 FHIR v4.0 Active (Latency: 14ms)</span>
+            </div>
           </div>
+          <Link
+            to="/prediction"
+            className="inline-flex items-center space-x-2 px-3.5 py-2 bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold rounded shadow-xs transition"
+          >
+            <span>Run Risk Assessment</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
       </div>
 
@@ -144,17 +139,17 @@ export const ClinicalDashboardPage: React.FC = () => {
       {/* 3. Charts & Analytics Overview */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Monthly Prediction Volume (Area Chart) */}
-        <div className="lg:col-span-2 bg-surface rounded-card p-5 border border-borderLine shadow-medical flex flex-col justify-between">
-          <div className="flex items-center justify-between border-b border-borderLine pb-3 mb-4">
+        <div className="lg:col-span-2 bg-white rounded-lg p-5 border border-slate-200 shadow-xs flex flex-col justify-between">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
             <div>
-              <h3 className="font-serif text-lg font-bold text-navy-800">
+              <h3 className="text-base font-bold text-slate-900">
                 Monthly Clinical Prediction Trajectory
               </h3>
-              <p className="text-xs text-slateText">
-                Volume of diagnostic assessments evaluated across inpatient and outpatient services
+              <p className="text-xs text-slate-500">
+                Diagnostic evaluations performed across inpatient and outpatient registry cohorts
               </p>
             </div>
-            <span className="text-[11px] font-mono px-2 py-1 rounded bg-ivory text-medblue font-semibold border border-borderLine">
+            <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-sky-700 font-semibold border border-slate-200">
               2026 YTD
             </span>
           </div>
@@ -164,39 +159,39 @@ export const ClinicalDashboardPage: React.FC = () => {
               <AreaChart data={monthlyVolumeData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="volGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#2F6F8F" stopOpacity={0.25} />
-                    <stop offset="95%" stopColor="#2F6F8F" stopOpacity={0.0} />
+                    <stop offset="5%" stopColor="#0284C7" stopOpacity={0.15} />
+                    <stop offset="95%" stopColor="#0284C7" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#65727E' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: '#65727E' }} axisLine={false} tickLine={false} />
+                <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#64748B' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: '#64748B' }} axisLine={false} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#FCFBF8',
-                    border: '1px solid #DCE3E2',
-                    borderRadius: '8px',
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '6px',
                     fontSize: '11px',
-                    boxShadow: '0 4px 12px rgba(22, 50, 79, 0.08)',
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
                   }}
                 />
-                <Area type="monotone" dataKey="volume" stroke="#16324F" strokeWidth={2} fillOpacity={1} fill="url(#volGrad)" name="Total Assessments" />
+                <Area type="monotone" dataKey="volume" stroke="#0284C7" strokeWidth={2} fillOpacity={1} fill="url(#volGrad)" name="Total Assessments" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
 
-          <div className="mt-2 pt-3 border-t border-borderLine/50 flex items-center justify-between text-xs text-slateText">
-            <span>Average monthly growth: +8.4%</span>
-            <span className="font-semibold text-navy-800">Zero inference downtime detected</span>
+          <div className="mt-2 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+            <span>Average monthly volume growth: +8.4%</span>
+            <span className="font-semibold text-slate-700">Zero algorithmic downtime detected</span>
           </div>
         </div>
 
         {/* Risk Category Distribution (Donut Chart) */}
-        <div className="bg-surface rounded-card p-5 border border-borderLine shadow-medical flex flex-col justify-between">
-          <div className="border-b border-borderLine pb-3 mb-2">
-            <h3 className="font-serif text-lg font-bold text-navy-800">
+        <div className="bg-white rounded-lg p-5 border border-slate-200 shadow-xs flex flex-col justify-between">
+          <div className="border-b border-slate-100 pb-3 mb-2">
+            <h3 className="text-base font-bold text-slate-900">
               Cohort Risk Stratification
             </h3>
-            <p className="text-xs text-slateText">
+            <p className="text-xs text-slate-500">
               Active patient population distribution
             </p>
           </div>
@@ -217,28 +212,28 @@ export const ClinicalDashboardPage: React.FC = () => {
                 </Pie>
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#FCFBF8',
-                    border: '1px solid #DCE3E2',
-                    borderRadius: '8px',
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '6px',
                     fontSize: '11px',
                   }}
                 />
               </PieChart>
             </ResponsiveContainer>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-xl font-bold text-navy-800 font-sans">1,248</span>
-              <span className="text-[10px] text-slateText uppercase font-semibold">Patients</span>
+              <span className="text-xl font-bold text-slate-900 font-sans">1,248</span>
+              <span className="text-[10px] text-slate-500 uppercase font-semibold">Patients</span>
             </div>
           </div>
 
-          <div className="space-y-1.5 pt-2 border-t border-borderLine/50 text-xs">
+          <div className="space-y-1.5 pt-2 border-t border-slate-100 text-xs">
             {riskDistributionData.map((d, i) => (
               <div key={i} className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: d.color }} />
-                  <span className="text-slateText">{d.name}</span>
+                  <span className="text-slate-600">{d.name}</span>
                 </div>
-                <span className="font-bold text-navy-800 font-mono">
+                <span className="font-bold text-slate-900 font-mono">
                   {d.value} ({Math.round((d.value / 1248) * 100)}%)
                 </span>
               </div>
@@ -248,27 +243,27 @@ export const ClinicalDashboardPage: React.FC = () => {
       </div>
 
       {/* 4. Active Patient Risk Triage Queue */}
-      <div className="bg-surface rounded-card border border-borderLine shadow-medical overflow-hidden">
-        <div className="p-5 bg-surface border-b border-borderLine flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div className="bg-white rounded-lg border border-slate-200 shadow-xs overflow-hidden">
+        <div className="p-4 bg-white border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h3 className="font-serif text-lg font-bold text-navy-800">
+            <h3 className="text-base font-bold text-slate-900">
               Active Patient Risk Triage Queue
             </h3>
-            <p className="text-xs text-slateText">
+            <p className="text-xs text-slate-500">
               Prioritized clinical assessments requiring physician review or therapeutic escalation
             </p>
           </div>
 
           {/* Filter Pills */}
-          <div className="flex items-center space-x-1.5 bg-ivory p-1 rounded-btn border border-borderLine">
+          <div className="flex items-center space-x-1.5 bg-slate-100 p-1 rounded border border-slate-200">
             {['ALL', 'HIGH', 'MODERATE', 'LOW'].map((t) => (
               <button
                 key={t}
                 onClick={() => setFilterTier(t)}
-                className={`px-3 py-1 text-xs font-semibold rounded-md transition ${
+                className={`px-3 py-1 text-xs font-semibold rounded transition ${
                   filterTier === t
-                    ? 'bg-navy-800 text-ivory shadow-xs'
-                    : 'text-slateText hover:text-navy-800'
+                    ? 'bg-white text-slate-900 shadow-xs border border-slate-200'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 {t === 'ALL' ? 'All Patients' : t}

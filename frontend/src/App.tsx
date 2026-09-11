@@ -8,7 +8,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './context/AuthContext';
 import { AppNavbar } from './components/layout/AppNavbar';
-import { AppSidebar } from './components/layout/AppSidebar';
 
 // Clinical Command Center Pages
 import { ClinicalDashboardPage } from './pages/dashboard/ClinicalDashboardPage';
@@ -39,17 +38,14 @@ const queryClient = new QueryClient({
   },
 });
 
-// Application Main Layout with ivory background and hospital elevation
+// Application Main Layout with full-width top navigation and clean hospital slate background
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-ivory flex flex-col text-charcoal font-sans antialiased selection:bg-medblue/20 selection:text-navy-900">
+    <div className="min-h-screen bg-slate-100 flex flex-col text-slate-900 font-sans antialiased selection:bg-sky-500/20 selection:text-slate-900">
       <AppNavbar />
-      <div className="flex flex-1">
-        <AppSidebar />
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full overflow-x-hidden">
-          {children}
-        </main>
-      </div>
+      <main className="flex-1 px-4 sm:px-6 lg:px-8 py-6 max-w-7xl mx-auto w-full">
+        {children}
+      </main>
     </div>
   );
 };

@@ -35,7 +35,7 @@ export const SystemSettingsPage: React.FC = () => {
           <span className="text-[11px] font-bold text-medblue uppercase tracking-wider font-mono">
             Platform Configuration & Administration
           </span>
-          <h2 className="font-serif text-2xl lg:text-3xl font-bold text-navy-800">
+          <h2 className="text-xl lg:text-2xl font-bold text-slate-900">
             Clinical Decision Governance & Settings
           </h2>
           <p className="text-xs text-slateText">
@@ -64,7 +64,7 @@ export const SystemSettingsPage: React.FC = () => {
         <div className="bg-surface rounded-card p-6 border border-borderLine shadow-medical space-y-4">
           <div className="flex items-center space-x-2 border-b border-borderLine pb-3">
             <Sliders className="w-4 h-4 text-medblue" />
-            <h3 className="font-serif text-lg font-bold text-navy-800">
+            <h3 className="text-base font-bold text-slate-900">
               Risk Stratification Cutoffs
             </h3>
           </div>
@@ -122,7 +122,7 @@ export const SystemSettingsPage: React.FC = () => {
         <div className="bg-surface rounded-card p-6 border border-borderLine shadow-medical space-y-4">
           <div className="flex items-center space-x-2 border-b border-borderLine pb-3">
             <Cpu className="w-4 h-4 text-teal" />
-            <h3 className="font-serif text-lg font-bold text-navy-800">
+            <h3 className="text-base font-bold text-slate-900">
               Hospital Ward & EHR Integration
             </h3>
           </div>

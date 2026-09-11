@@ -8,49 +8,49 @@ export default {
     extend: {
       colors: {
         navy: {
-          900: '#0F2338',
-          800: '#16324F', // Primary Deep Navy
-          700: '#1E4368',
-          600: '#27527D',
+          900: '#0F172A', // Slate 900
+          800: '#1E293B', // Slate 800 (Clean Clinical Navy)
+          700: '#334155', // Slate 700
+          600: '#475569', // Slate 600
         },
         medblue: {
-          DEFAULT: '#2F6F8F', // Medical Blue
-          light: '#E8F0F3',   // Mist Blue
-          hover: '#245A75',
-          dark: '#1D455A',
+          DEFAULT: '#0284C7', // Clinical Medical Blue (Sky 600)
+          light: '#F0F9FF',   // Subtle Blue Tint
+          hover: '#0369A1',   // Sky 700
+          dark: '#0C4A6E',    // Sky 900
         },
         teal: {
-          DEFAULT: '#4F8A8B', // Muted Teal
-          light: '#EDF5F5',
-          dark: '#3B6B6C',
+          DEFAULT: '#0D9488', // Teal 600
+          light: '#F0FDFA',   // Teal 50
+          dark: '#115E59',    // Teal 800
         },
         sage: {
-          DEFAULT: '#7C9A92', // Sage Green
-          light: '#E7EFEB',   // Pale Sage
-          dark: '#5F7C74',
+          DEFAULT: '#16A34A', // Clinical Green (Green 600)
+          light: '#F0FDF4',   // Light Green Tint
+          dark: '#15803D',    // Green 700
         },
         ivory: {
-          DEFAULT: '#F7F5EF', // Main Background
-          dark: '#EEEBE1',
+          DEFAULT: '#F8FAFC', // Crisp Clean Clinical Background (Slate 50)
+          dark: '#F1F5F9',    // Slate 100
         },
-        surface: '#FCFBF8',   // Card Surface
-        charcoal: '#263238',  // Text Charcoal
-        slateText: '#65727E', // Secondary Text
-        beige: '#EDE7DC',      // Warm Beige Accent
-        borderLine: '#DCE3E2', // Clinical divider line
+        surface: '#FFFFFF',   // Pure Crisp Medical Surface
+        charcoal: '#0F172A',  // High-Readability Clinical Text (Slate 900)
+        slateText: '#64748B', // Neutral Secondary Text (Slate 500)
+        beige: '#F1F5F9',      // Subtle Slate Divider
+        borderLine: '#E2E8F0', // Crisp 1px Medical Border (Slate 200)
         status: {
-          healthy: '#2E7D32',
-          healthyBg: '#EAF4EC',
-          healthyBorder: '#C8E6C9',
-          warning: '#C97A2B',
-          warningBg: '#FDF5EC',
-          warningBorder: '#FFE0B2',
-          critical: '#B33939',
-          criticalBg: '#FDF0F0',
-          criticalBorder: '#FFCDD2',
-          info: '#2F6F8F',
-          infoBg: '#EEF5F8',
-          infoBorder: '#B3D4E5',
+          healthy: '#16A34A',      // Authentic Clinical Green
+          healthyBg: '#F0FDF4',
+          healthyBorder: '#BBF7D0',
+          warning: '#D97706',      // Authentic Amber
+          warningBg: '#FFFBEB',
+          warningBorder: '#FDE68A',
+          critical: '#DC2626',     // Authentic Crimson
+          criticalBg: '#FEF2F2',
+          criticalBorder: '#FECACA',
+          info: '#0284C7',         // Clinical Sky Blue
+          infoBg: '#F0F9FF',
+          infoBorder: '#BAE6FD',
         }
       },
       fontFamily: {
@@ -59,13 +59,13 @@ export default {
         display: ['"Libre Baskerville"', 'Georgia', 'serif'],
       },
       boxShadow: {
-        'subtle': '0 1px 3px 0 rgba(22, 50, 79, 0.04), 0 1px 2px -1px rgba(22, 50, 79, 0.02)',
-        'medical': '0 4px 18px 0 rgba(22, 50, 79, 0.05), 0 1px 3px 0 rgba(22, 50, 79, 0.03)',
-        'elevated': '0 10px 30px -4px rgba(22, 50, 79, 0.08), 0 4px 10px -2px rgba(22, 50, 79, 0.04)',
+        'subtle': '0 1px 2px 0 rgba(0, 0, 0, 0.04)',
+        'medical': '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)',
+        'elevated': '0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05)',
       },
       borderRadius: {
-        'card': '14px',
-        'btn': '9px',
+        'card': '8px',
+        'btn': '6px',
       }
     },
   },

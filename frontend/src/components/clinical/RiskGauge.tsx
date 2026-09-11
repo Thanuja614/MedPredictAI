@@ -41,7 +41,7 @@ export const RiskGauge: React.FC<RiskGaugeProps> = ({
       textColor: 'text-status-healthy',
       bgColor: 'bg-status-healthyBg',
       borderColor: 'border-status-healthyBorder',
-      strokeColor: '#2E7D32',
+      strokeColor: '#16A34A',
       icon: CheckCircle2,
       description: 'Standard surveillance interval. Maintain non-pharmacological lifestyle counseling.',
     },
@@ -50,7 +50,7 @@ export const RiskGauge: React.FC<RiskGaugeProps> = ({
       textColor: 'text-status-warning',
       bgColor: 'bg-status-warningBg',
       borderColor: 'border-status-warningBorder',
-      strokeColor: '#C97A2B',
+      strokeColor: '#D97706',
       icon: AlertTriangle,
       description: 'Consider initiating primary prevention GDMT. Reassess biomarkers within 60–90 days.',
     },
@@ -59,7 +59,7 @@ export const RiskGauge: React.FC<RiskGaugeProps> = ({
       textColor: 'text-status-critical',
       bgColor: 'bg-status-criticalBg',
       borderColor: 'border-status-criticalBorder',
-      strokeColor: '#B33939',
+      strokeColor: '#DC2626',
       icon: ShieldAlert,
       description: 'Immediate clinical review indicated. Recommend combination guideline pharmacotherapy.',
     },
@@ -68,7 +68,7 @@ export const RiskGauge: React.FC<RiskGaugeProps> = ({
       textColor: 'text-status-critical',
       bgColor: 'bg-status-criticalBg',
       borderColor: 'border-status-criticalBorder',
-      strokeColor: '#8E0000',
+      strokeColor: '#991B1B',
       icon: AlertCircle,
       description: 'Urgent diagnostic escalation required. Evaluate for acute decompensation.',
     },
@@ -78,17 +78,13 @@ export const RiskGauge: React.FC<RiskGaugeProps> = ({
   const radius = (size - 30) / 2;
   const strokeWidth = 14;
   const circumference = 2 * Math.PI * radius;
-  // Use a 240-degree arc
-  const arcLength = circumference * (240 / 360);
-  const strokeDashoffset = arcLength - (arcLength * clampedPct) / 100;
+  const arcLength = (240 / 360) * circumference;
+  const strokeDashoffset = arcLength - (clampedPct / 100) * arcLength;
 
   const IconComponent = tierConfig.icon;
 
   return (
-    <div className="bg-surface rounded-card p-6 border border-borderLine shadow-medical flex flex-col items-center text-center relative overflow-hidden">
-      {/* Background Watermark Pattern */}
-      <div className="absolute inset-0 bg-dot-pattern opacity-40 pointer-events-none" />
-
+    <div className="bg-surface rounded-card p-5 border border-borderLine shadow-medical flex flex-col items-center justify-between relative overflow-hidden">
       <div className="relative z-10 w-full flex flex-col items-center">
         {/* Header Title */}
         <span className="text-[11px] font-bold uppercase tracking-wider text-slateText font-mono mb-2">
@@ -109,7 +105,7 @@ export const RiskGauge: React.FC<RiskGaugeProps> = ({
               cy={size / 2}
               r={radius}
               fill="none"
-              stroke="#E8F0F3"
+              stroke="#E2E8F0"
               strokeWidth={strokeWidth}
               strokeDasharray={`${arcLength} ${circumference}`}
               strokeLinecap="round"

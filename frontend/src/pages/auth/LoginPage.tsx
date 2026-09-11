@@ -94,7 +94,7 @@ export const LoginPage: React.FC = () => {
         <div className="lg:col-span-7 p-8 lg:p-12 flex flex-col justify-between space-y-8 bg-surface">
           <div>
             <div className="space-y-1">
-              <h3 className="font-serif text-2xl font-bold text-navy-800">
+              <h3 className="text-xl font-bold text-slate-900">
                 Sign In to Clinical Terminal
               </h3>
               <p className="text-xs text-slateText">

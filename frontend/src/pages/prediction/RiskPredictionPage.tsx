@@ -231,7 +231,7 @@ export const RiskPredictionPage: React.FC = () => {
           <span className="text-[11px] font-bold text-medblue uppercase tracking-wider font-mono">
             Diagnostic Inference Workspace
           </span>
-          <h2 className="font-serif text-2xl font-bold text-navy-800">
+          <h2 className="text-xl font-bold text-slate-900">
             Multi-Disease Risk Prediction Engine
           </h2>
           <p className="text-xs text-slateText">
@@ -261,7 +261,7 @@ export const RiskPredictionPage: React.FC = () => {
             <div className="flex items-center justify-between border-b border-borderLine pb-3">
               <div className="flex items-center space-x-2">
                 <FileSpreadsheet className="w-4 h-4 text-medblue" />
-                <h3 className="font-serif text-lg font-bold text-navy-800">
+                <h3 className="text-base font-bold text-slate-900">
                   Clinical Intake & Observations
                 </h3>
               </div>
@@ -530,7 +530,7 @@ export const RiskPredictionPage: React.FC = () => {
           ) : (
             <div className="bg-surface rounded-card p-12 border border-borderLine shadow-medical text-center space-y-3">
               <Activity className="w-8 h-8 text-slateText/40 mx-auto" />
-              <h4 className="font-serif text-base font-bold text-navy-800">
+              <h4 className="text-sm font-bold text-slate-900">
                 Awaiting Clinical Input
               </h4>
               <p className="text-xs text-slateText max-w-xs mx-auto">
