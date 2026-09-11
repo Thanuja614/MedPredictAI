@@ -5,6 +5,7 @@ Aggregates all domain routes under the /api/v1 prefix.
 
 from fastapi import APIRouter
 from backend.app.api.v1.endpoints import (
+    clinical_enterprise,
     health,
     auth,
     users,
@@ -68,4 +69,5 @@ api_router.include_router(settings.router, prefix="/settings", tags=["System Set
 
 # Clinical Decision Support & Ontologies
 api_router.include_router(clinical.router)
+api_router.include_router(clinical_enterprise.router)
 
