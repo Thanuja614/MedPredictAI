@@ -27,7 +27,7 @@ export const UIComponent_124_1_1: React.FC = () => {
     o2Sat: 98,
     isDiabetic: false,
     isSmoker: false,
-  }});
+  });
 
   const riskScore = useMemo(() => {
     let s = state.age * 0.3 + (state.systolic - 100) * 0.2 + state.creatinine * 10;
@@ -76,7 +76,7 @@ export const UIComponent_124_1_2: React.FC = () => {
     o2Sat: 98,
     isDiabetic: false,
     isSmoker: false,
-  }});
+  });
 
   const riskScore = useMemo(() => {
     let s = state.age * 0.3 + (state.systolic - 100) * 0.2 + state.creatinine * 10;
@@ -125,7 +125,7 @@ export const UIComponent_124_1_3: React.FC = () => {
     o2Sat: 98,
     isDiabetic: false,
     isSmoker: false,
-  }});
+  });
 
   const riskScore = useMemo(() => {
     let s = state.age * 0.3 + (state.systolic - 100) * 0.2 + state.creatinine * 10;
@@ -174,7 +174,7 @@ export const UIComponent_124_1_4: React.FC = () => {
     o2Sat: 98,
     isDiabetic: false,
     isSmoker: false,
-  }});
+  });
 
   const riskScore = useMemo(() => {
     let s = state.age * 0.3 + (state.systolic - 100) * 0.2 + state.creatinine * 10;
@@ -223,7 +223,7 @@ export const UIComponent_124_1_5: React.FC = () => {
     o2Sat: 98,
     isDiabetic: false,
     isSmoker: false,
-  }});
+  });
 
   const riskScore = useMemo(() => {
     let s = state.age * 0.3 + (state.systolic - 100) * 0.2 + state.creatinine * 10;
@@ -272,7 +272,7 @@ export const UIComponent_124_1_6: React.FC = () => {
     o2Sat: 98,
     isDiabetic: false,
     isSmoker: false,
-  }});
+  });
 
   const riskScore = useMemo(() => {
     let s = state.age * 0.3 + (state.systolic - 100) * 0.2 + state.creatinine * 10;
@@ -321,7 +321,7 @@ export const UIComponent_124_1_7: React.FC = () => {
     o2Sat: 98,
     isDiabetic: false,
     isSmoker: false,
-  }});
+  });
 
   const riskScore = useMemo(() => {
     let s = state.age * 0.3 + (state.systolic - 100) * 0.2 + state.creatinine * 10;
@@ -370,7 +370,7 @@ export const UIComponent_124_1_8: React.FC = () => {
     o2Sat: 98,
     isDiabetic: false,
     isSmoker: false,
-  }});
+  });
 
   const riskScore = useMemo(() => {
     let s = state.age * 0.3 + (state.systolic - 100) * 0.2 + state.creatinine * 10;
@@ -419,7 +419,7 @@ export const UIComponent_124_1_9: React.FC = () => {
     o2Sat: 98,
     isDiabetic: false,
     isSmoker: false,
-  }});
+  });
 
   const riskScore = useMemo(() => {
     let s = state.age * 0.3 + (state.systolic - 100) * 0.2 + state.creatinine * 10;
@@ -468,7 +468,7 @@ export const UIComponent_124_1_10: React.FC = () => {
     o2Sat: 98,
     isDiabetic: false,
     isSmoker: false,
-  }});
+  });
 
   const riskScore = useMemo(() => {
     let s = state.age * 0.3 + (state.systolic - 100) * 0.2 + state.creatinine * 10;
@@ -517,7 +517,7 @@ export const UIComponent_124_1_11: React.FC = () => {
     o2Sat: 98,
     isDiabetic: false,
     isSmoker: false,
-  }});
+  });
 
   const riskScore = useMemo(() => {
     let s = state.age * 0.3 + (state.systolic - 100) * 0.2 + state.creatinine * 10;
@@ -566,7 +566,7 @@ export const UIComponent_124_1_12: React.FC = () => {
     o2Sat: 98,
     isDiabetic: false,
     isSmoker: false,
-  }});
+  });
 
   const riskScore = useMemo(() => {
     let s = state.age * 0.3 + (state.systolic - 100) * 0.2 + state.creatinine * 10;

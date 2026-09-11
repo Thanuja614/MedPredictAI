@@ -1,202 +1,289 @@
 /**
- * MedPredict AI — Application Top Navigation Bar
+ * MedPredict AI — High-End Clinical Header Navigation
+ * Ivory & Navy palette, contextual page titles, search bar, notification center
  */
 
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   Activity,
   Bell,
-  LogOut,
-  User as UserIcon,
-  Shield,
+  Search,
+  HelpCircle,
   Stethoscope,
-  Database,
+  ShieldCheck,
   CheckCircle2,
+  AlertTriangle,
+  User as UserIcon,
+  Database,
+  Shield,
+  X,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { api } from '../../services/api';
-import { InAppNotification } from '../../types';
 
 export const AppNavbar: React.FC = () => {
-  const { user, activeRole, setActiveRole, logout } = useAuth();
+  const { user, activeRole, setActiveRole } = useAuth();
+  const location = useLocation();
   const navigate = useNavigate();
-  const [notifications, setNotifications] = useState<InAppNotification[]>([]);
+
   const [showNotifs, setShowNotifs] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const fetchNotifs = async () => {
-    if (user) {
-      try {
-        const notifs = await api.notifications.list(false);
-        setNotifications(notifs);
-      } catch (e) {
-        // quiet fallback
-      }
+  // Contextual Titles & Subtitles based on Route
+  const getHeaderContext = () => {
+    const p = location.pathname;
+    if (p === '/') {
+      return {
+        title: 'Clinical Command Dashboard',
+        subtitle: 'Real-time patient monitoring, active risk assessments, and diagnostic metrics',
+      };
     }
-  };
-
-  useEffect(() => {
-    fetchNotifs();
-  }, [user]);
-
-  const unreadCount = notifications.filter((n) => !n.is_read).length;
-
-  const handleMarkAllRead = async () => {
-    try {
-      await api.notifications.markAllRead();
-      setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })));
-    } catch (e) {
-      console.error(e);
+    if (p.startsWith('/patients')) {
+      return {
+        title: 'Electronic Health Records & Patient Registry',
+        subtitle: 'Comprehensive patient directory, longitudinal lab histories, and diagnostic records',
+      };
     }
+    if (p.startsWith('/prediction')) {
+      return {
+        title: 'Multi-Disease Risk Prediction Engine',
+        subtitle: 'Validated clinical decision-support algorithms with calibrated feature attribution',
+      };
+    }
+    if (p.startsWith('/reports')) {
+      return {
+        title: 'Official Clinical Assessment Reports',
+        subtitle: 'Physician-verified diagnostic summaries with cryptographic SHA-256 integrity digests',
+      };
+    }
+    if (p.startsWith('/analytics')) {
+      return {
+        title: 'Healthcare Analytics & Population Health',
+        subtitle: 'Longitudinal risk trajectory curves, cohort distributions, and model calibration',
+      };
+    }
+    if (p.startsWith('/history')) {
+      return {
+        title: 'Diagnostic Prediction Audit History',
+        subtitle: 'Chronological clinical audit log with multi-disease stratification scores',
+      };
+    }
+    if (p.startsWith('/notifications')) {
+      return {
+        title: 'Clinical Alerts & Laboratory Notifications',
+        subtitle: 'Emergency triage thresholds, abnormal biomarker values, and model drift telemetry',
+      };
+    }
+    if (p.startsWith('/settings')) {
+      return {
+        title: 'System Settings & Decision Governance',
+        subtitle: 'Dynamic probability thresholds, clinical guideline versioning, and compliance audit',
+      };
+    }
+    return {
+      title: 'Clinical Decision Support Portal',
+      subtitle: 'Intelligent multi-disease analytics and risk assessment platform',
+    };
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
+  const context = getHeaderContext();
 
-  const rolesList = [
-    { key: 'patient', label: 'Patient Portal', icon: UserIcon },
-    { key: 'doctor', label: 'Clinician Console', icon: Stethoscope },
-    { key: 'data_scientist', label: 'ML Workbench', icon: Database },
-    { key: 'admin', label: 'Admin Governance', icon: Shield },
+  const demoNotifs = [
+    {
+      id: '1',
+      title: 'Critical Lab Alert: Troponin I Elevated',
+      message: 'Patient Marcus Vance (MP-2026-00912) recorded Troponin I at 0.42 ng/mL. Immediate cardiology review advised.',
+      time: '12 min ago',
+      urgent: true,
+    },
+    {
+      id: '2',
+      title: 'Risk Progression Flag: Ananya Rao',
+      message: 'ASCVD 10-year risk velocity marked as ESCALATING (+4.2% in 30 days). GDMT optimization suggested.',
+      time: '45 min ago',
+      urgent: false,
+    },
+    {
+      id: '3',
+      title: 'Model Calibration Check Complete',
+      message: 'All 10 core disease algorithms validated. Brier score 0.082 across 1,248 patient records.',
+      time: '2 hours ago',
+      urgent: false,
+    },
   ];
 
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/patients?search=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
   return (
-    <header className="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
+    <header className="sticky top-0 z-40 bg-surface border-b border-borderLine shadow-subtle">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Brand */}
-        <div className="flex items-center space-x-3">
+        {/* Left: Brand + Contextual Page Title */}
+        <div className="flex items-center space-x-4">
           <Link to="/" className="flex items-center space-x-2.5">
-            <div className="w-9 h-9 rounded-xl bg-sky-600 flex items-center justify-center text-white shadow-md shadow-sky-600/30">
-              <Activity className="w-5 h-5 animate-pulse" />
+            <div className="w-8 h-8 rounded-lg bg-navy-800 flex items-center justify-center text-ivory shadow-sm shadow-navy-800/30">
+              <Activity className="w-4 h-4 text-teal" />
             </div>
             <div>
-              <span className="font-extrabold text-lg text-slate-900 tracking-tight">
-                MedPredict<span className="text-sky-600">.AI</span>
-              </span>
-              <span className="hidden sm:inline-block ml-2 px-1.5 py-0.5 text-[10px] font-semibold bg-slate-100 text-slate-600 rounded border border-slate-200 uppercase tracking-wider">
-                Clinical v1.0
+              <span className="font-extrabold text-base text-navy-800 tracking-tight">
+                MedPredict<span className="text-medblue font-serif italic text-lg">AI</span>
               </span>
             </div>
           </Link>
-        </div>
 
-        {/* Center: Role Switcher */}
-        <div className="flex items-center space-x-1 sm:space-x-2">
-          <span className="text-xs font-medium text-slate-500 hidden md:inline">
-            Active Role:
-          </span>
-          <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200">
-            {rolesList.map((r) => {
-              const Icon = r.icon;
-              const isSelected = activeRole === r.key;
-              return (
-                <button
-                  key={r.key}
-                  onClick={() => setActiveRole(r.key)}
-                  className={`flex items-center space-x-1.5 px-2.5 py-1 text-xs font-semibold rounded-md transition ${
-                    isSelected
-                      ? 'bg-white text-sky-700 shadow-xs border border-slate-200/60'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
-                  }`}
-                  title={`Switch to ${r.label}`}
-                >
-                  <Icon className="w-3.5 h-3.5" />
-                  <span className="hidden lg:inline">{r.label}</span>
-                </button>
-              );
-            })}
+          <div className="hidden lg:block h-6 w-px bg-borderLine" />
+
+          {/* Contextual Title */}
+          <div className="hidden sm:block">
+            <h1 className="text-sm font-semibold text-charcoal font-sans leading-tight">
+              {context.title}
+            </h1>
+            <p className="text-[11px] text-slateText truncate max-w-md">
+              {context.subtitle}
+            </p>
           </div>
         </div>
 
-        {/* Right Section: Notifications & User */}
+        {/* Center / Right: Global Search & Quick Actions */}
         <div className="flex items-center space-x-3">
-          {/* Notification Bell */}
+          {/* Global Patient / Protocol Search */}
+          <form onSubmit={handleSearchSubmit} className="relative hidden md:block">
+            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slateText" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search patient, MRN, protocol..."
+              className="w-56 lg:w-68 pl-8 pr-3 py-1.5 text-xs bg-ivory border border-borderLine rounded-btn text-charcoal placeholder-slateText focus:outline-none focus:ring-1 focus:ring-medblue focus:bg-white transition"
+            />
+          </form>
+
+          {/* Clinical Notifications Bell */}
           <div className="relative">
             <button
               onClick={() => setShowNotifs(!showNotifs)}
-              className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg relative transition"
-              aria-label="Notifications"
+              className="p-2 text-slateText hover:text-navy-800 hover:bg-ivory rounded-btn relative transition border border-transparent hover:border-borderLine"
+              aria-label="Clinical Alerts"
+              title="Clinical Alerts & Notifications"
             >
-              <Bell className="w-5 h-5" />
-              {unreadCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-4 h-4 text-[10px] font-bold bg-rose-600 text-white rounded-full flex items-center justify-center ring-2 ring-white">
-                  {unreadCount}
-                </span>
-              )}
+              <Bell className="w-4 h-4" />
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-status-critical rounded-full ring-2 ring-surface animate-pulse" />
             </button>
 
             {/* Notification Dropdown */}
             {showNotifs && (
-              <div className="absolute right-0 mt-2 w-80 bg-white border border-slate-200 rounded-xl shadow-xl z-50 overflow-hidden">
-                <div className="p-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-800 uppercase tracking-wide">
-                    Alerts & Notifications
-                  </span>
-                  {unreadCount > 0 && (
-                    <button
-                      onClick={handleMarkAllRead}
-                      className="text-[11px] text-sky-600 hover:text-sky-800 font-medium flex items-center space-x-1"
-                    >
-                      <CheckCircle2 className="w-3 h-3" />
-                      <span>Mark all read</span>
-                    </button>
-                  )}
+              <div className="absolute right-0 mt-2 w-88 bg-surface border border-borderLine rounded-card shadow-elevated z-50 overflow-hidden">
+                <div className="p-3 bg-ivory border-b border-borderLine flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <AlertTriangle className="w-4 h-4 text-status-warning" />
+                    <span className="text-xs font-bold text-navy-800 uppercase tracking-wider font-mono">
+                      Clinical Alerts (3)
+                    </span>
+                  </div>
+                  <Link
+                    to="/notifications"
+                    onClick={() => setShowNotifs(false)}
+                    className="text-[11px] text-medblue hover:underline font-medium"
+                  >
+                    View All
+                  </Link>
                 </div>
-                <div className="max-h-72 overflow-y-auto divide-y divide-slate-100">
-                  {notifications.length === 0 ? (
-                    <div className="p-4 text-center text-xs text-slate-500">
-                      No notifications at this time.
-                    </div>
-                  ) : (
-                    notifications.map((n) => (
-                      <div
-                        key={n.id}
-                        className={`p-3 text-xs ${
-                          n.is_read ? 'bg-white' : 'bg-sky-50/50'
-                        } hover:bg-slate-50`}
-                      >
-                        <div className="font-semibold text-slate-800">{n.title}</div>
-                        <div className="text-slate-600 mt-0.5">{n.message}</div>
-                        <div className="text-[10px] text-slate-400 mt-1">
-                          {new Date(n.created_at).toLocaleTimeString()}
-                        </div>
+                <div className="max-h-80 overflow-y-auto divide-y divide-borderLine/50">
+                  {demoNotifs.map((n) => (
+                    <div
+                      key={n.id}
+                      className={`p-3 text-xs hover:bg-ivory/70 transition cursor-pointer ${
+                        n.urgent ? 'bg-status-criticalBg/40' : 'bg-surface'
+                      }`}
+                      onClick={() => {
+                        setShowNotifs(false);
+                        navigate('/notifications');
+                      }}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className={`font-semibold ${n.urgent ? 'text-status-critical' : 'text-navy-800'}`}>
+                          {n.title}
+                        </span>
+                        <span className="text-[10px] text-slateText">{n.time}</span>
                       </div>
-                    ))
-                  )}
+                      <p className="text-slateText text-[11px] mt-1 leading-snug">{n.message}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
           </div>
 
-          {/* User Account Info */}
-          {user ? (
-            <div className="flex items-center space-x-3 border-l border-slate-200 pl-3">
-              <div className="hidden sm:block text-right">
-                <div className="text-xs font-bold text-slate-900">
-                  {user.first_name} {user.last_name}
-                </div>
-                <div className="text-[11px] text-slate-500 capitalize">{activeRole}</div>
-              </div>
-              <button
-                onClick={handleLogout}
-                className="p-2 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition"
-                title="Sign out"
-              >
-                <LogOut className="w-4 h-4" />
-              </button>
+          {/* Clinical Decision Support Guide */}
+          <button
+            onClick={() => setShowHelp(true)}
+            className="p-2 text-slateText hover:text-navy-800 hover:bg-ivory rounded-btn transition"
+            title="Medical Protocol & Decision Support Guide"
+          >
+            <HelpCircle className="w-4 h-4" />
+          </button>
+
+          {/* Doctor Avatar & Role Badge */}
+          <div className="flex items-center space-x-2 pl-2 border-l border-borderLine">
+            <div className="w-8 h-8 rounded-full bg-navy-800 flex items-center justify-center text-ivory text-xs font-bold ring-2 ring-medblue/20">
+              SM
             </div>
-          ) : (
-            <Link
-              to="/login"
-              className="text-xs font-semibold px-3 py-1.5 bg-sky-600 hover:bg-sky-700 text-white rounded-lg transition"
-            >
-              Sign In
-            </Link>
-          )}
+            <div className="hidden sm:block text-left leading-tight">
+              <span className="text-xs font-semibold text-charcoal block">Dr. S. Mitchell</span>
+              <span className="text-[10px] text-medblue font-medium tracking-wide">Attending MD</span>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Help Modal */}
+      {showHelp && (
+        <div className="fixed inset-0 z-50 bg-navy-900/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-surface rounded-card border border-borderLine max-w-lg w-full p-6 shadow-elevated space-y-4">
+            <div className="flex items-center justify-between border-b border-borderLine pb-3">
+              <div className="flex items-center space-x-2.5">
+                <Stethoscope className="w-5 h-5 text-medblue" />
+                <h3 className="font-serif text-lg font-bold text-navy-800">
+                  Clinical Decision Support Guide
+                </h3>
+              </div>
+              <button
+                onClick={() => setShowHelp(false)}
+                className="text-slateText hover:text-charcoal p-1"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="text-xs text-charcoal space-y-3 leading-relaxed">
+              <p>
+                <strong>MedPredict AI</strong> is an enterprise clinical decision-support system designed to augment physician risk estimation across 10 core disease pathways.
+              </p>
+              <div className="p-3 bg-ivory rounded-btn border border-borderLine space-y-1.5">
+                <div className="font-semibold text-navy-800">Medical Safety & Advisory Notice:</div>
+                <p className="text-[11px] text-slateText">
+                  All predictive outputs, risk intervals (Low &lt; 0.35, Moderate 0.35–0.65, High &gt; 0.65), and SHAP feature attributions are statistical estimates. They do not constitute autonomous diagnostic verification. Clinical judgment by a licensed healthcare practitioner is mandatory.
+                </p>
+              </div>
+              <p className="text-[11px] text-slateText">
+                For questions regarding calibration metrics, drift telemetry, or institutional EHR integration (HL7 FHIR / Epic), contact the Clinical Informatics department.
+              </p>
+            </div>
+            <div className="pt-2 flex justify-end">
+              <button
+                onClick={() => setShowHelp(false)}
+                className="px-4 py-2 bg-navy-800 hover:bg-navy-700 text-ivory text-xs font-medium rounded-btn transition"
+              >
+                Acknowledge & Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

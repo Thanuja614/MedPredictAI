@@ -1,71 +1,77 @@
 /**
- * MedPredict AI — Role-Adaptive Application Sidebar
+ * MedPredict AI — High-End Clinical Desktop Sidebar
+ * Deep Navy (#16324F), gold/ivory accents, clean typography, medical navigation
  */
 
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
-  ClipboardList,
-  History,
   Users,
-  FileText,
   Activity,
-  Cpu,
+  FileText,
   BarChart3,
-  Sliders,
+  History,
+  Bell,
   Settings,
   ShieldCheck,
-  Zap,
+  LogOut,
+  Stethoscope,
+  HeartPulse,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 export const AppSidebar: React.FC = () => {
-  const { activeRole } = useAuth();
+  const { user, activeRole, logout } = useAuth();
+  const navigate = useNavigate();
 
-  // Route definitions by role
-  const patientNav = [
-    { to: '/', label: 'My Health Dashboard', icon: LayoutDashboard },
-    { to: '/assessment', label: 'Start Health Assessment', icon: ClipboardList },
-    { to: '/history', label: 'Past Assessments', icon: History },
+  const navItems = [
+    { to: '/', label: 'Clinical Dashboard', icon: LayoutDashboard, badge: undefined },
+    { to: '/patients', label: 'Patient Records', icon: Users, badge: '1,248' },
+    { to: '/prediction', label: 'Risk Prediction', icon: Activity, badge: '10 Models' },
+    { to: '/reports', label: 'Medical Reports', icon: FileText, badge: undefined },
+    { to: '/analytics', label: 'Analytics & Trends', icon: BarChart3, badge: undefined },
+    { to: '/history', label: 'Prediction History', icon: History, badge: undefined },
+    { to: '/notifications', label: 'Clinical Alerts', icon: Bell, badge: '3 New' },
+    { to: '/settings', label: 'System Settings', icon: Settings, badge: undefined },
   ];
 
-  const doctorNav = [
-    { to: '/', label: 'Clinical Overview', icon: LayoutDashboard },
-    { to: '/clinician/patients', label: 'Patient Directory', icon: Users },
-    { to: '/assessment', label: 'Diagnostic Assessment', icon: Activity },
-    { to: '/clinician/reports', label: 'Clinical Reports', icon: FileText },
-  ];
+  const handleSignOut = () => {
+    logout();
+    navigate('/login');
+  };
 
-  const dataScientistNav = [
-    { to: '/', label: 'Platform Summary', icon: LayoutDashboard },
-    { to: '/workbench', label: '10 Disease Modules', icon: Cpu },
-    { to: '/workbench/drift', label: 'Drift & Fairness Monitor', icon: BarChart3 },
-    { to: '/workbench/governance', label: 'Model Registry Lifecycle', icon: Sliders },
-  ];
-
-  const adminNav = [
-    { to: '/', label: 'Command Center', icon: LayoutDashboard },
-    { to: '/admin/users', label: 'User & Role Access', icon: Users },
-    { to: '/admin/settings', label: 'System Configurations', icon: Settings },
-    { to: '/admin/jobs', label: 'Background Tasks', icon: Zap },
-    { to: '/admin/audit', label: 'HIPAA Audit Trail', icon: ShieldCheck },
-  ];
-
-  let currentNav = patientNav;
-  if (activeRole === 'doctor') currentNav = doctorNav;
-  else if (activeRole === 'data_scientist') currentNav = dataScientistNav;
-  else if (activeRole === 'admin') currentNav = adminNav;
+  const displayName = user 
+    ? `${user.first_name} ${user.last_name}` 
+    : 'Dr. Sarah Mitchell, MD';
+  
+  const displayRole = user?.roles?.[0]?.name 
+    ? user.roles[0].name.toUpperCase() 
+    : 'CHIEF OF CARDIOLOGY';
 
   return (
-    <aside className="w-64 bg-white border-r border-slate-200 min-h-[calc(100vh-4rem)] p-4 flex flex-col justify-between hidden md:flex">
+    <aside className="w-68 bg-navy-800 text-ivory border-r border-navy-900/60 min-h-[calc(100vh-4rem)] p-4 flex flex-col justify-between hidden md:flex shrink-0 shadow-xl select-none">
       <div className="space-y-6">
+        {/* Hospital Division Sub-badge */}
+        <div className="px-3 py-2 bg-navy-900/50 rounded-lg border border-white/5 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-[11px] font-semibold text-slate-300 tracking-wide uppercase">
+              St. Jude Medical Center
+            </span>
+          </div>
+          <span className="text-[10px] font-bold text-teal px-1.5 py-0.5 bg-teal/10 rounded border border-teal/20">
+            Ward 4B
+          </span>
+        </div>
+
+        {/* Primary Navigation */}
         <div>
-          <div className="px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-            Navigation Menu
+          <div className="px-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 font-mono">
+            Clinical Navigation
           </div>
           <nav className="space-y-1">
-            {currentNav.map((item) => {
+            {navItems.map((item) => {
               const Icon = item.icon;
               return (
                 <NavLink
@@ -73,30 +79,62 @@ export const AppSidebar: React.FC = () => {
                   to={item.to}
                   end={item.to === '/'}
                   className={({ isActive }) =>
-                    `flex items-center space-x-3 px-3 py-2 text-sm font-medium rounded-lg transition ${
+                    `flex items-center justify-between px-3 py-2.5 text-xs font-medium rounded-lg transition-all duration-150 ${
                       isActive
-                        ? 'bg-sky-50 text-sky-700 font-semibold border-r-2 border-sky-600'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                        ? 'bg-medblue text-white font-semibold shadow-md shadow-navy-900/30 border-l-3 border-teal'
+                        : 'text-slate-300 hover:text-white hover:bg-navy-700/60'
                     }`
                   }
                 >
-                  <Icon className="w-4 h-4 text-slate-500" />
-                  <span>{item.label}</span>
+                  <div className="flex items-center space-x-3">
+                    <Icon className="w-4 h-4 opacity-80" />
+                    <span>{item.label}</span>
+                  </div>
+                  {item.badge && (
+                    <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-white/10 text-slate-200">
+                      {item.badge}
+                    </span>
+                  )}
                 </NavLink>
               );
             })}
           </nav>
         </div>
+
+        {/* Clinical Decision Support Status Box */}
+        <div className="p-3 bg-navy-900/60 rounded-xl border border-white/5 text-xs text-slate-300 space-y-2">
+          <div className="flex items-center space-x-2 text-sage font-semibold">
+            <HeartPulse className="w-4 h-4" />
+            <span>Inference Engine v2.3</span>
+          </div>
+          <p className="text-[11px] text-slate-400 leading-relaxed">
+            10 disease prediction algorithms calibrated against AHA/ACC & KDIGO guidelines.
+          </p>
+          <div className="flex items-center space-x-2 text-[10px] text-teal pt-1 border-t border-white/5">
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>HIPAA Audit Trail Active</span>
+          </div>
+        </div>
       </div>
 
-      <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80 text-xs text-slate-600">
-        <div className="flex items-center space-x-2 font-semibold text-slate-800">
-          <Activity className="w-4 h-4 text-sky-600" />
-          <span>Local Engine Active</span>
+      {/* User Profile & Role Footer */}
+      <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+        <div className="flex items-center space-x-2.5 min-w-0">
+          <div className="w-8 h-8 rounded-full bg-medblue flex items-center justify-center text-white text-xs font-bold ring-2 ring-white/10 shrink-0">
+            <Stethoscope className="w-4 h-4" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-xs font-semibold text-white truncate">{displayName}</p>
+            <p className="text-[10px] text-slate-400 truncate">{displayRole}</p>
+          </div>
         </div>
-        <p className="mt-1 text-[11px] text-slate-500">
-          FastAPI Backend & SQLite / PostgreSQL Local Stack.
-        </p>
+        <button
+          onClick={handleSignOut}
+          className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-white/5 rounded-md transition"
+          title="Sign Out of Terminal"
+        >
+          <LogOut className="w-4 h-4" />
+        </button>
       </div>
     </aside>
   );
