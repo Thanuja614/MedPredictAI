@@ -29,6 +29,7 @@ if not desktop_candidate.exists():
 OUTPUT_ZIP = desktop_candidate / "MedPredictAI_v2.0.0.zip"
 DOWNLOADS_ZIP = Path.home() / "Downloads" / "MedPredictAI_v2.0.0.zip"
 LOCAL_ZIP = ROOT / "MedPredictAI_v2.0.0.zip"
+PARENT_ZIP = ROOT.parent / "MedPredictAI_v2.0.0.zip"
 
 EXCLUDED_DIR_NAMES = {
     'venv', '.venv', 'node_modules', 'dist', 'build',
@@ -122,6 +123,12 @@ def create_archive():
         print(f"[*] Copy created at Workspace: {LOCAL_ZIP}")
     except Exception as e:
         print(f"[!] Warning copying to Workspace: {e}")
+
+    try:
+        shutil.copy2(OUTPUT_ZIP, PARENT_ZIP)
+        print(f"[*] Copy created at Parent directory: {PARENT_ZIP}")
+    except Exception as e:
+        print(f"[!] Warning copying to Parent directory: {e}")
 
 def verify_archive():
     print("\n[*] Verifying archive compliance against evaluator criteria...")
